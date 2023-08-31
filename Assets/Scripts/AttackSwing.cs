@@ -4,11 +4,9 @@ using UnityEngine;
 
 public class AttackSwing : MonoBehaviour
 {
-
     float swingDistance, rotationSpeed, easeFactorAdjust;
     GameObject swingObject;
 
-    PlayerEventHandler playerEventHandler;
     Transform swingHolderBase;
 
     Quaternion targetRotation;
