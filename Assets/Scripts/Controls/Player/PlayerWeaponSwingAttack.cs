@@ -13,8 +13,8 @@ public class PlayerWeaponSwingAttack : ControllerBase
 
     private void Start()
     {
-        attackReload = FindObjectOfType<AttackReload>();
-        attackSwing = FindObjectOfType<AttackSwing>();
+        attackReload = transform.GetComponentInChildren<AttackReload>();
+        attackSwing = transform.GetComponentInChildren<AttackSwing>();
         attackAction.action.Enable();
     }
 

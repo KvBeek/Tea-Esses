@@ -17,12 +17,12 @@ public class LStickMove : ControllerBase
 
     private void Update()
     {
-        movement = playerInputManager.Player.Movement.ReadValue<Vector2>();
+        movement = playerInputManager.Player.Movement.ReadValue<Vector2>().normalized * speed;
     }
     private void FixedUpdate()
     {
         if (dashAction.isDashing) return;
-        rb.velocity = new Vector3(movement.x, rb.velocity.y, movement.y) * speed;
+        rb.velocity = new Vector3(movement.x, rb.velocity.y, movement.y);
     }
 
 }
