@@ -49,5 +49,4 @@ public class AttackSwing : MonoBehaviour
         swingHolderBase.localRotation = target; // Ensure final rotation is accurate
         swingObject.gameObject.SetActive(false);
     }
-
 }

@@ -73,4 +73,9 @@ public class Patrol : MonoBehaviour
         sphereCollider.center = pEyeSightLocation;
         sphereCollider.radius = pEyesightSize;
     }
+
+    public bool IsFollowing()
+    {
+        return isFollowing;
+    }
 }
