@@ -50,10 +50,11 @@ public class WeaponSwingAttack : ControllerBase
 
     void HasHitHittable()
     {
-        Health health = hitHittableObject.GetHittenObject().GetComponent<Health>();
+        GameObject hittedObject = hitHittableObject.GetHittenObject();
+        Health health = hittedObject.GetComponent<Health>();
         health.TakeDamage();
         hitHittableObject.SetHitState(false);
 
-        if(health.GetHealth() <= 0) hitHittableObject.GetHittenObject().SetActive(false);
+        if(health.GetHealth() <= 0) hittedObject.SetActive(false);
     }
 }

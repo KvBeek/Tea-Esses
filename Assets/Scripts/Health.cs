@@ -8,6 +8,7 @@ public class Health : MonoBehaviour
 
     private void Start()
     {
+        totalHealth = healthObject.Length;
         currentHealth = totalHealth;
     }
 
