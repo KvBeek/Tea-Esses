@@ -11,9 +11,12 @@ public class AttackSwing : MonoBehaviour
     Quaternion targetRotation;
     Quaternion initialRotation;
 
+    RStickAim rStickAim;
+
     private void Start()
     {
         swingHolderBase = GetComponent<Transform>();
+        rStickAim = FindObjectOfType<RStickAim>();
     }
 
     public void Swing(GameObject pSwingObject, float pSwingDistance = 30, float pRotationSpeed = 2f, float pEaseFactorAdjust = 6)
@@ -26,13 +29,13 @@ public class AttackSwing : MonoBehaviour
         initialRotation.eulerAngles = Vector3.up * -swingDistance;
         targetRotation.eulerAngles = Vector3.up * swingDistance;
 
-        swingObject.gameObject.SetActive(true);
-
         StartCoroutine(SwingRotation());
     }
 
     IEnumerator SwingRotation()
     {
+        rStickAim.enabled = false;
+        swingObject.gameObject.SetActive(true);
         float elapsedTime = 0.0f;
         Quaternion startRotation = initialRotation;
         Quaternion target = targetRotation;
@@ -48,5 +51,6 @@ public class AttackSwing : MonoBehaviour
 
         swingHolderBase.localRotation = target; // Ensure final rotation is accurate
         swingObject.gameObject.SetActive(false);
+        rStickAim.enabled = true;
     }
 }
