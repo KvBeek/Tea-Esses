@@ -11,16 +11,13 @@ public class HitHittableObject : MonoBehaviour
 
     private void Start()
     {
-        parentRB = transform.GetComponentInParent<Rigidbody>().transform;
-
-        foreach (BoxCollider bc in parentRB.GetComponentsInChildren<BoxCollider>())
-            foreach (SphereCollider sc in parentRB.GetComponents<SphereCollider>())
-                Physics.IgnoreCollision(sc, bc);
+        parentRB = transform.parent.GetComponentInParent<Rigidbody>().transform;
+        Physics.IgnoreCollision(GetComponent<BoxCollider>(), parentRB.GetComponent<SphereCollider>());
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.isTrigger) { return; }
+        if (other.isTrigger) { return; }
 
         if (other.GetComponent<Hittable>())
         {

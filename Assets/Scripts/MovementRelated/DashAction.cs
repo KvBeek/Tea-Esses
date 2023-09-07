@@ -35,6 +35,7 @@ public class DashAction : ControllerBase
         rb.AddForce(dashDirection * dashSpeed, ForceMode.Impulse);
         yield return new WaitForSeconds(dashDuration);
         isDashing = false;
+        rb.velocity = Vector3.zero;
         yield return new WaitForSeconds(dashDuration);
         canDash = true;
     }

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour
@@ -9,6 +7,7 @@ public class Enemy : MonoBehaviour
     Player player = null;
     [SerializeField] AttackReload attackReload = null;
     [SerializeField] float atttackDistance = 3f;
+    [SerializeField] float rotationSpeed = 2f;
 
     private void Start()
     {
@@ -16,18 +15,30 @@ public class Enemy : MonoBehaviour
         patrol = GetComponent<Patrol>();
         player = FindObjectOfType<Player>();
         attackReload = transform.GetComponentInChildren<AttackReload>();
+
+        // mark this gameobject as enemy inside the WeaponSwingAttack script
         weaponSwingAttack.SetAsEnemy();
     }
 
     private void Update()
     {
-        if (!patrol.IsFollowing() || attackReload.reload) return;
+        // Check if player is being follow
+        if (!patrol.IsFollowing()) return;
+
+        // Rotate towards player when not moving, otherwise enemy always misses
+        Vector3 direction = player.transform.position - transform.position;
+        Quaternion toRotation = Quaternion.LookRotation(direction, transform.up);
+        transform.rotation = Quaternion.Lerp(transform.rotation, toRotation, rotationSpeed * Time.fixedDeltaTime);
+
+        // If reload is not active, attack if in range
+        if (attackReload.reload) return;
         AttackInRange();
     }
 
     void AttackInRange()
     {
-        if (Vector3.Distance(transform.position, player.transform.position) < atttackDistance)
+        // If player is in range, attack
+        if (Vector3.Distance(transform.position, player.transform.position) < atttackDistance && player.gameObject.activeSelf)
             weaponSwingAttack.Attack();
     }
 }

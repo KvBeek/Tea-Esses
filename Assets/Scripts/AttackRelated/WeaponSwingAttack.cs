@@ -17,7 +17,7 @@ public class WeaponSwingAttack : ControllerBase
     {
         attackReload = transform.GetComponentInChildren<AttackReload>();
         attackSwing = transform.GetComponentInChildren<AttackSwing>();
-        hitHittableObject = attackWeapon.GetComponent<HitHittableObject>();
+        hitHittableObject = attackWeapon.GetComponentInChildren<HitHittableObject>();
         if (attackAction != null) attackAction.action.Enable();
     }
     public void SetAsEnemy()
