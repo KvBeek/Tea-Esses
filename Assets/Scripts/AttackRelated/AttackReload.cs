@@ -12,7 +12,7 @@ public class AttackReload : ControllerBase
 
     public bool reload { get; private set; }  = false;
 
-    private void Start()
+    protected override void Start()
     {
         // Get UI image for reloading
         reloadUIImage = transform.GetChild(1).GetComponent<Image>();

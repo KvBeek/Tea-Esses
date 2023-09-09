@@ -3,11 +3,10 @@ using UnityEngine;
 
 public class AttackSwing : MonoBehaviour
 {
-    float swingDistance, rotationSpeed, easeFactorAdjust;
     GameObject swingObject;
-
     Transform swingHolderBase;
 
+    float swingDistance, rotationSpeed, easeFactorAdjust;
     Quaternion targetRotation;
     Quaternion initialRotation;
 
@@ -19,6 +18,13 @@ public class AttackSwing : MonoBehaviour
         rStickAim = FindObjectOfType<RStickAim>();
     }
 
+    /// <summary>
+    /// Swings the gameObject swingObject on a specifiek angle
+    /// </summary>
+    /// <param name="pSwingObject"></param>
+    /// <param name="pSwingDistance"></param>
+    /// <param name="pRotationSpeed"></param>
+    /// <param name="pEaseFactorAdjust"></param>
     public void Swing(GameObject pSwingObject, float pSwingDistance = 30, float pRotationSpeed = 2f, float pEaseFactorAdjust = 6)
     {
         swingDistance = pSwingDistance;

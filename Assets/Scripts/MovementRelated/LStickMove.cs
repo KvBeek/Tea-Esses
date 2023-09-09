@@ -9,7 +9,7 @@ public class LStickMove : ControllerBase
 
     public Vector2 movement = Vector2.zero;
 
-    private void Start()
+    protected override void Start()
     {
         rb = GetComponent<Rigidbody>();
         dashAction = GetComponent<DashAction>();

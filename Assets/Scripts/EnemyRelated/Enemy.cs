@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    [SerializeField] WeaponSwingAttack weaponSwingAttack;
+    [SerializeField] WeaponAttack weaponAttack;
     Patrol patrol = null;
     Player player = null;
     [SerializeField] AttackReload attackReload = null;
@@ -11,13 +11,13 @@ public class Enemy : MonoBehaviour
 
     private void Start()
     {
-        weaponSwingAttack = GetComponent<WeaponSwingAttack>();
+        weaponAttack = GetComponent<WeaponAttack>();
         patrol = GetComponent<Patrol>();
         player = FindObjectOfType<Player>();
         attackReload = transform.GetComponentInChildren<AttackReload>();
 
         // mark this gameobject as enemy inside the WeaponSwingAttack script
-        weaponSwingAttack.SetAsEnemy();
+        weaponAttack.SetAsEnemy();
     }
 
     private void Update()
@@ -39,6 +39,6 @@ public class Enemy : MonoBehaviour
     {
         // If player is in range, attack
         if (Vector3.Distance(transform.position, player.transform.position) < atttackDistance && player.gameObject.activeSelf)
-            weaponSwingAttack.Attack();
+            weaponAttack.Attack();
     }
 }

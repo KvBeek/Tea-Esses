@@ -1,22 +1,21 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class WeaponSwingAttack : ControllerBase
+public class AttackBase : ControllerBase
 {
-    AttackReload attackReload;
-    AttackSwing attackSwing;
-    HitHittableObject hitHittableObject;
+    [SerializeReference] AttackReload attackReload;
+    [SerializeReference] HitHittableObject hitHittableObject;
 
-    [SerializeField] GameObject attackWeapon;
-    [SerializeField] float attackFillSpeed = 1f;
-    [SerializeField] float attackSwingDistance = 30;
-    [SerializeField] InputActionReference attackAction;
-    [SerializeField] bool isEnemy = false;
+    [SerializeReference] protected GameObject attackWeapon;
+    [SerializeReference] float attackFillSpeed = 1f;
+    [SerializeReference] protected float attackDistance = 30;
+    [SerializeReference] InputActionReference attackAction;
+    [SerializeReference] bool isEnemy = false;
 
-    private void Start()
+    protected override void Start()
     {
+        base.Start();
         attackReload = transform.GetComponentInChildren<AttackReload>();
-        attackSwing = transform.GetComponentInChildren<AttackSwing>();
         hitHittableObject = attackWeapon.GetComponentInChildren<HitHittableObject>();
         if (attackAction != null) attackAction.action.Enable();
     }
@@ -25,8 +24,7 @@ public class WeaponSwingAttack : ControllerBase
         isEnemy = true;
     }
 
-
-    private void Update()
+    protected override void Update()
     {
         if (hitHittableObject.GetHitState()) HasHitHittable();
         if (attackReload.reload && !isEnemy) return;
@@ -37,15 +35,12 @@ public class WeaponSwingAttack : ControllerBase
     {
         if (attackAction == null) return;
         if (playerInputManager.FindAction(attackAction.name).IsPressed())
-        {
             Attack();
-        }
     }
 
-    public void Attack()
+    public virtual void Attack()
     {
         attackReload.ReloadAttackUI(attackFillSpeed);
-        attackSwing.Swing(attackWeapon, attackSwingDistance);
     }
 
     void HasHitHittable()
@@ -55,6 +50,7 @@ public class WeaponSwingAttack : ControllerBase
         health.TakeDamage();
         hitHittableObject.SetHitState(false);
 
-        if(health.GetHealth() <= 0) hittedObject.SetActive(false);
+        if (health.GetHealth() <= 0) hittedObject.SetActive(false);
     }
+
 }

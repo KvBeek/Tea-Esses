@@ -15,7 +15,7 @@ public class DashAction : ControllerBase
 
     Vector3 dashDirection;
 
-    private void Start()
+    protected override void Start()
     {
         rb = GetComponent<Rigidbody>();
         playerInputManager.FindAction(attackAction.name).performed += ctx => Dash();

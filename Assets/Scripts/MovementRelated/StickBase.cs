@@ -2,12 +2,15 @@ using UnityEngine;
 
 public class ControllerBase : MonoBehaviour
 {
-    public PlayerInputManager playerInputManager { get; private set; } = null;
+    [SerializeReference] protected PlayerInputManager playerInputManager = null;
 
-    private void Awake()
+    protected virtual void Awake()
     {
         playerInputManager = new PlayerInputManager();
     }
+
+    protected virtual void Start(){}
+    protected virtual void Update(){}
 
     private void OnEnable()
     {
