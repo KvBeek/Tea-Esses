@@ -26,7 +26,9 @@ public class AttackBase : ControllerBase
 
     protected override void Update()
     {
-        if (hitHittableObject.GetHitState()) HasHitHittable();
+        if (hitHittableObject.GetHitState())
+            HasHitHittable();
+        
         if (attackReload.reload && !isEnemy) return;
         ControllerInput();
     }
@@ -45,12 +47,33 @@ public class AttackBase : ControllerBase
 
     void HasHitHittable()
     {
+        hitHittableObject.SetHitState(false);
         GameObject hittedObject = hitHittableObject.GetHittenObject();
+
+       if (Bounce(hittedObject)) return;
+
         Health health = hittedObject.GetComponent<Health>();
         health.TakeDamage();
-        hitHittableObject.SetHitState(false);
 
         if (health.GetHealth() <= 0) hittedObject.SetActive(false);
     }
 
+    bool Bounce(GameObject pHittedObject)
+    {
+        BounceOffAttack boa = null;
+
+        Transform parent = null;
+        if(pHittedObject.transform.parent != null)
+            parent = pHittedObject.transform.parent.transform;
+
+        if (parent != null)
+            boa = parent.GetComponent<BounceOffAttack>();
+
+        if (boa != null)
+        {
+            attackWeapon.SetActive(false);
+            return true;
+        }
+        return false;
+    }
 }

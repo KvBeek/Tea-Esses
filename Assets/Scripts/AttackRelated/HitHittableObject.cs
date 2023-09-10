@@ -19,7 +19,7 @@ public class HitHittableObject : MonoBehaviour
     {
         if (other.isTrigger) { return; }
 
-        if (other.GetComponent<Hittable>())
+        if (other.GetComponentInParent<BounceOffAttack>() || other.GetComponent<Hittable>())
         {
             lastHitObject = other.gameObject;
             hasHitRB = true;
